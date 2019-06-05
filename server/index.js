@@ -1,3 +1,5 @@
+//require('./config/config.js');
+
 const express = require("express");
 const mongoose = require('mongoose');
 const app = express();
@@ -19,14 +21,10 @@ con.connect(function(err) {
     });
 });
 
-app.post('/hola', function(req, res) {
-    res.send('[POST]Saludos desde express');
-});
-
-app.get('/hola', function(req, res) {
-    res.send('[GET]Saludos desde express');
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(require('./routes/usuario'));
 
 app.listen(3000, () => {
-    console.log("El servidor está inicializado en el puerto 3000");
+    console.log("Escuchando puerto 3000");
 });
